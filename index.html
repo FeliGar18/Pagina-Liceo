@@ -791,20 +791,46 @@
             transform: scale(1);
         }
 
-        /* ===================== RESPONSIVE BASICS ===================== */
+        /* ===================== HAMBURGER ===================== */
+        .nav-toggle { display:none; background:none; border:none; cursor:pointer; padding:6px; flex-direction:column; gap:5px; }
+        .nav-toggle span { display:block; width:24px; height:2px; background:var(--texto); border-radius:2px; transition:all .3s; }
+        .nav-toggle.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+        .nav-toggle.open span:nth-child(2) { opacity:0; }
+        .nav-toggle.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+        /* ===================== RESPONSIVE ===================== */
         @media (max-width: 900px) {
-            nav { padding: 10px 20px; }
-            .nav-links { gap: 16px; }
-            #inicio h1 { font-size: 36px; }
-            #inicio h2 { font-size: 22px; }
+            nav { padding: 10px 16px; }
+            .nav-brand-text p { display: none; }
+            .nav-logos img { height: 32px; }
+            .nav-toggle { display: flex; }
+            .nav-links { display:none; position:fixed; top:60px; left:0; right:0; background:white; flex-direction:column; gap:0; padding:8px 0; box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:999; }
+            .nav-links.open { display: flex; }
+            .nav-links li { width: 100%; }
+            .nav-links a { display:block; padding:13px 24px; font-size:15px; border-bottom:1px solid #f0f0f0; border-radius:0; font-weight:500; }
+            .nav-links li:last-child a { border-bottom: none; }
+            .nav-btn { border-radius:0 !important; text-align:center; }
+            #inicio { padding: 120px 20px 60px; }
+            #inicio h1 { font-size: 32px; }
+            #inicio h2 { font-size: 20px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
             .hero-features { grid-template-columns: 1fr; max-width: 320px; }
+            .schedule-card { padding: 20px 20px; }
             .historia-card { grid-template-columns: 1fr; }
             .mission-grid { grid-template-columns: repeat(2,1fr); }
             .esp-grid { grid-template-columns: repeat(2,1fr); }
             .news-grid { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
-            .footer-main { grid-template-columns: 1fr; gap: 32px; }
+            .footer-main { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 28px; }
+            .footer-badge-col { display: none; }
+            .footer-bottom { padding: 16px 20px; }
             .porque-grid { grid-template-columns: 1fr; }
+            section { padding: 60px 20px; }
+        }
+        @media (max-width: 480px) {
+            #inicio h1 { font-size: 26px; }
+            .mission-grid { grid-template-columns: 1fr; }
+            .esp-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -822,7 +848,8 @@
             <p>Ingeniero Ricardo Fenner Ruedi</p>
         </div>
     </a>
-    <ul class="nav-links">
+    <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="nosotros.html">Nosotros</a></li>
         <li><a href="#especialidades">Especialidades</a></li>
@@ -1209,6 +1236,18 @@
             e.preventDefault();
             const target = document.querySelector(a.getAttribute('href'));
             if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // Hamburger menu
+    document.getElementById('navToggle').addEventListener('click', function(){
+        this.classList.toggle('open');
+        document.getElementById('navLinks').classList.toggle('open');
+    });
+    document.querySelectorAll('#navLinks a').forEach(function(a){
+        a.addEventListener('click', function(){
+            document.getElementById('navToggle').classList.remove('open');
+            document.getElementById('navLinks').classList.remove('open');
         });
     });
 
