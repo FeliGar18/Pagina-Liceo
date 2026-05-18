@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructuras Metálicas - Liceo Bicentenario Industrial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        :root { --rojo:#6B1726; --rojo-dark:#4a0e1a; --gold:#F0B429; --azul:#4a6fa5; --texto:#1a1a2e; --gris-bg:#f5f7fa; --color:#2B4EAF; --color-dark:#1e3a8a; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Inter',sans-serif; color:var(--texto); overflow-x:hidden; }
+        nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:white; box-shadow:0 2px 12px rgba(0,0,0,0.09); padding:10px 48px; display:flex; align-items:center; justify-content:space-between; }
+        .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .nav-logos { display:flex; gap:8px; align-items:center; }
+        .nav-logos img { height:40px; width:auto; object-fit:contain; }
+        .nav-brand-text h1 { font-size:13px; font-weight:700; color:var(--texto); line-height:1.2; }
+        .nav-brand-text p { font-size:11px; color:#777; }
+        .nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+        .nav-links a { text-decoration:none; color:#444; font-size:14px; font-weight:500; transition:color .2s; }
+        .nav-links a:hover { color:var(--rojo); }
+        .nav-btn { background:var(--rojo) !important; color:white !important; padding:8px 22px; border-radius:7px; font-weight:600 !important; }
+        .page-hero { background:linear-gradient(135deg,#0f2460,#2B4EAF,#3b63d4); color:white; padding:130px 48px 70px; text-align:center; }
+        .breadcrumb { font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:14px; }
+        .breadcrumb a { color:#F0B429; text-decoration:none; font-weight:600; }
+        .breadcrumb span { margin:0 6px; opacity:.6; }
+        .hero-icon { width:90px; height:90px; background:rgba(255,255,255,0.15); border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 24px; }
+        .hero-icon i { font-size:44px; color:white; }
+        .page-hero h1 { font-size:46px; font-weight:900; margin-bottom:14px; }
+        .page-hero p { font-size:17px; color:rgba(255,255,255,0.88); max-width:620px; margin:0 auto 28px; line-height:1.65; }
+        .hero-badges { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+        .badge-pill { background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.35); color:white; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; }
+        section { padding:76px 48px; }
+        .container { max-width:1100px; margin:0 auto; }
+        .section-header { text-align:center; margin-bottom:52px; }
+        .section-header h2 { font-size:32px; font-weight:800; margin-bottom:12px; }
+        .section-header p { font-size:15px; color:#555; max-width:580px; margin:0 auto; line-height:1.65; }
+        .accent { color:var(--color); }
+        .overview { background:white; }
+        .overview-grid { display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:center; }
+        .overview-text h2 { font-size:30px; font-weight:800; margin-bottom:18px; }
+        .overview-text p { font-size:15px; color:#444; line-height:1.8; margin-bottom:16px; }
+        .overview-img { background:var(--gris-bg); border-radius:16px; min-height:300px; display:flex; align-items:center; justify-content:center; }
+        .overview-img i { font-size:72px; color:#ddd; }
+        .stat-row { display:flex; gap:24px; margin-top:28px; }
+        .stat { text-align:center; background:var(--gris-bg); border-radius:12px; padding:18px 22px; flex:1; border-top:3px solid var(--color); }
+        .stat .num { font-size:28px; font-weight:900; color:var(--color); }
+        .stat .lbl { font-size:12px; color:#777; margin-top:4px; }
+        .competencias { background:var(--gris-bg); }
+        .comp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+        .comp-card { background:white; border-radius:14px; padding:26px 22px; box-shadow:0 2px 12px rgba(0,0,0,0.06); border-left:4px solid var(--color); }
+        .comp-card i { font-size:26px; color:var(--color); margin-bottom:12px; display:block; }
+        .comp-card h4 { font-size:15px; font-weight:700; margin-bottom:8px; }
+        .comp-card p { font-size:13px; color:#555; line-height:1.6; }
+        .plan { background:white; }
+        .plan-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+        .plan-card { border-radius:14px; padding:24px 18px; }
+        .plan-card.c1 { background:linear-gradient(135deg,#4a0e1a,#6B1726); color:white; }
+        .plan-card.c2 { background:linear-gradient(135deg,#0f2460,#2B4EAF); color:white; }
+        .plan-card.c3 { background:linear-gradient(135deg,#d4981f,#F0B429); color:var(--texto); }
+        .plan-card.c4 { background:linear-gradient(135deg,#1e3a8a,#3b63d4); color:white; }
+        .plan-card .year { font-size:11px; font-weight:700; opacity:.8; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+        .plan-card h4 { font-size:14px; font-weight:800; margin-bottom:12px; }
+        .plan-card ul { list-style:none; }
+        .plan-card li { font-size:12px; opacity:.85; margin-bottom:5px; display:flex; align-items:flex-start; gap:6px; line-height:1.4; }
+        .plan-card li::before { content:'•'; flex-shrink:0; }
+        .salidas { background:var(--gris-bg); }
+        .salidas-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+        .salida-card { background:white; border-radius:14px; padding:28px 22px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+        .salida-card i { font-size:34px; color:var(--color); margin-bottom:14px; display:block; }
+        .salida-card h4 { font-size:15px; font-weight:700; margin-bottom:8px; }
+        .salida-card p { font-size:13px; color:#555; line-height:1.55; }
+        .cta { background:var(--color); text-align:center; padding:64px 48px; }
+        .cta h2 { font-size:28px; font-weight:900; color:white; margin-bottom:12px; }
+        .cta p { font-size:16px; color:rgba(255,255,255,0.88); margin-bottom:28px; }
+        .btn-white { background:white; color:var(--color); padding:14px 32px; border-radius:9px; font-weight:700; font-size:15px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; margin:0 8px; }
+        .btn-outline { background:transparent; color:white; padding:14px 32px; border-radius:9px; font-weight:700; font-size:15px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; border:2px solid white; margin:0 8px; }
+        footer { background:#4a0e1a; color:white; }
+        .footer-main { display:grid; grid-template-columns:2fr 1fr 1fr auto; gap:48px; max-width:1100px; margin:0 auto; padding:64px 48px 44px; }
+        .footer-badge-col { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+        .footer-badge-col img { max-width:160px; width:100%; object-fit:contain; opacity:.9; }
+        .footer-logo-row { display:flex; align-items:flex-start; gap:12px; margin-bottom:18px; }
+        .footer-logo-box { width:52px; height:52px; background:rgba(255,255,255,0.12); border-radius:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+        .footer-logo-box img { width:100%; height:100%; object-fit:contain; }
+        .footer-brand-text h3 { font-size:14px; font-weight:800; line-height:1.3; }
+        .footer-brand-text p { font-size:12px; color:rgba(255,255,255,0.65); }
+        .footer-desc { font-size:13.5px; color:rgba(255,255,255,0.75); line-height:1.75; margin-bottom:22px; }
+        .footer-desc strong { color:var(--gold); }
+        .socials { display:flex; gap:10px; }
+        .socials a { width:36px; height:36px; background:rgba(255,255,255,0.13); border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-size:15px; text-decoration:none; }
+        .footer-col h4 { font-size:15px; font-weight:700; margin-bottom:20px; }
+        .footer-col ul { list-style:none; }
+        .footer-col li { margin-bottom:10px; }
+        .footer-col a { color:rgba(255,255,255,0.72); text-decoration:none; font-size:14px; transition:color .2s; }
+        .footer-col a:hover { color:var(--gold); }
+        .footer-col p { font-size:13.5px; color:rgba(255,255,255,0.72); margin-bottom:10px; display:flex; align-items:flex-start; gap:8px; }
+        .footer-col p i { color:var(--gold); margin-top:2px; }
+        .footer-bottom { border-top:1px solid rgba(255,255,255,0.14); padding:20px 48px; text-align:center; }
+        .footer-bottom p { font-size:12px; color:rgba(255,255,255,0.55); margin-bottom:4px; }
+        .footer-bottom .gold { color:var(--gold); }
+        /* ===================== SCROLL ANIMATIONS ===================== */
+        .reveal { opacity:0; transform:translateY(36px); transition:opacity .65s ease,transform .65s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity .65s ease,transform .65s ease; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity .65s ease,transform .65s ease; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(.88); transition:opacity .6s ease,transform .6s ease; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }    </style>
+</head>
+<body>
+<nav id="navbar">
+    <a href="index.html" class="nav-brand">
+        <div class="nav-logos"><img src="snalogo.png" alt="SNA EDUCA"><img src="liceologo.png" alt="Liceo"></div>
+        <div class="nav-brand-text"><h1>Liceo Bicentenario Industrial</h1><p>Ingeniero Ricardo Fenner Ruedi</p></div>
+    </a>
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="index.html#especialidades" style="color:var(--color);font-weight:700;">Especialidades</a></li>
+        <li><a href="equipo.html">Nuestro Equipo</a></li>
+        <li><a href="index.html#noticias">Noticias</a></li>
+        <li><a href="index.html#contacto" class="nav-btn">Contacto</a></li>
+    </ul>
+</nav>
+<div class="page-hero">
+    <p class="breadcrumb"><a href="index.html">Inicio</a> <span>&rsaquo;</span> <a href="index.html#especialidades">Especialidades</a> <span>&rsaquo;</span> Estructuras Metálicas</p>
+    <div class="hero-icon"><i class="fas fa-drafting-compass"></i></div>
+    <h1>Estructuras Metálicas</h1>
+    <p>Formación técnica en diseño, fabricación y montaje de estructuras metálicas para la construcción e industria nacional</p>
+    <div class="hero-badges">
+        <span class="badge-pill"><i class="fas fa-calendar-alt"></i> Especialidad en 3° y 4° Medio</span>
+        <span class="badge-pill"><i class="fas fa-award"></i> Título Técnico Nivel Medio</span>
+        <span class="badge-pill"><i class="fas fa-industry"></i> Alta proyección industrial</span>
+    </div>
+</div>
+<section class="overview">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-text">
+                <h2>¿De qué trata esta <span class="accent">especialidad</span>?</h2>
+                <p>La especialidad de Estructuras Metálicas forma técnicos capaces de diseñar, fabricar y montar estructuras de acero para la construcción de edificios, naves industriales, puentes, torres y obras de infraestructura.</p>
+                <p>Los egresados dominan procesos de soldadura, corte, doblado y tratamiento de metales, junto con lectura de planos estructurales y uso de software CAD para el diseño de piezas y conjuntos metálicos.</p>
+                <div class="stat-row">
+                    <div class="stat"><div class="num">2</div><div class="lbl">Años de especialidad</div></div>
+                    <div class="stat"><div class="num">AWS</div><div class="lbl">Norma de soldadura</div></div>
+                    <div class="stat"><div class="num">100%</div><div class="lbl">Trabajo en taller real</div></div>
+                </div>
+            </div>
+            <div class="overview-img"><i class="fas fa-industry"></i></div>
+        </div>
+    </div>
+</section>
+<section class="competencias">
+    <div class="container">
+        <div class="section-header"><h2>Competencias que <span class="accent">Desarrollarás</span></h2><p>Dominio técnico en fabricación, soldadura y montaje de estructuras de acero</p></div>
+        <div class="comp-grid">
+            <div class="comp-card"><i class="fas fa-fire-alt"></i><h4>Soldadura Estructural</h4><p>Dominio de procesos de soldadura SMAW, MIG/MAG y TIG para uniones estructurales según norma AWS.</p></div>
+            <div class="comp-card"><i class="fas fa-drafting-compass"></i><h4>Diseño de Estructuras</h4><p>Lectura e interpretación de planos estructurales y elaboración de despieces para fabricación en taller.</p></div>
+            <div class="comp-card"><i class="fas fa-cut"></i><h4>Corte y Conformado</h4><p>Uso de equipos de corte por plasma, oxicorte, plegado y rolado de perfiles y planchas de acero.</p></div>
+            <div class="comp-card"><i class="fas fa-hard-hat"></i><h4>Montaje en Terreno</h4><p>Técnicas seguras de montaje, izaje y conexión de estructuras metálicas en obra y altura.</p></div>
+            <div class="comp-card"><i class="fas fa-shield-alt"></i><h4>Control de Calidad</h4><p>Inspección visual y dimensional de soldaduras y piezas fabricadas según especificaciones técnicas.</p></div>
+            <div class="comp-card"><i class="fas fa-paint-roller"></i><h4>Tratamiento de Superficies</h4><p>Preparación y aplicación de recubrimientos anticorrosivos y pinturas de protección para estructuras.</p></div>
+        </div>
+    </div>
+</section>
+<section class="plan">
+    <div class="container">
+        <div class="section-header"><h2>Plan de <span class="accent">Estudios</span></h2><p>Los 2 primeros años son formación general. En 3° Medio eliges tu especialidad y en 4° la profundizas con práctica profesional</p></div>
+        <div class="plan-grid">
+            <div class="plan-card c1"><div class="year">1° Medio</div><h4>Formación General</h4><ul><li>Lenguaje y Comunicación</li><li>Matemática</li><li>Historia y Cs. Sociales</li><li>Ciencias Naturales</li><li>Ed. Física y Salud</li><li>Inglés</li></ul></div>
+            <div class="plan-card c2"><div class="year">2° Medio</div><h4>Formación General</h4><ul><li>Lenguaje y Comunicación</li><li>Matemática</li><li>Física y Química</li><li>Historia y Cs. Sociales</li><li>Ed. Física y Salud</li><li>Exploración vocacional</li></ul></div>
+            <div class="plan-card c3"><div class="year">⭐ 3° Medio — Eliges aquí</div><h4>Inicio de Especialidad</h4><ul><li>Soldadura MIG/MAG</li><li>Estructuras metálicas</li><li>Diseño en CAD</li><li>Montaje básico</li><li>Proyecto técnico</li></ul></div>
+            <div class="plan-card c4"><div class="year">4° Medio</div><h4>Integración</h4><ul><li>Soldadura TIG</li><li>Control de calidad</li><li>Práctica profesional</li><li>Proyecto final</li><li>Titulación</li></ul></div>
+        </div>
+    </div>
+</section>
+<section class="salidas">
+    <div class="container">
+        <div class="section-header"><h2>Campo <span class="accent">Laboral</span></h2><p>Amplia demanda en construcción, minería, industria naval y metalmecánica</p></div>
+        <div class="salidas-grid">
+            <div class="salida-card"><i class="fas fa-fire-alt"></i><h4>Soldador Estructural</h4><p>Fabricación y unión de estructuras metálicas en talleres y obras de construcción industrial.</p></div>
+            <div class="salida-card"><i class="fas fa-hard-hat"></i><h4>Montajista de Estructuras</h4><p>Montaje y conexión de estructuras metálicas en obras de construcción e infraestructura.</p></div>
+            <div class="salida-card"><i class="fas fa-search"></i><h4>Inspector de Soldadura</h4><p>Control de calidad de uniones soldadas según normas AWS e ISO en proyectos industriales.</p></div>
+            <div class="salida-card"><i class="fas fa-cogs"></i><h4>Técnico Metalmecánico</h4><p>Fabricación de piezas y conjuntos metálicos en talleres de manufactura y metalurgia.</p></div>
+            <div class="salida-card"><i class="fas fa-industry"></i><h4>Técnico en Mantenimiento</h4><p>Mantención de estructuras e instalaciones metálicas en plantas industriales y mineras.</p></div>
+            <div class="salida-card"><i class="fas fa-graduation-cap"></i><h4>Continuación de Estudios</h4><p>Acceso a Ingeniería en Construcción, Ingeniería Mecánica y carreras de metalurgia y soldadura.</p></div>
+        </div>
+    </div>
+</section>
+<div class="cta">
+    <h2>¿Te interesa esta especialidad?</h2>
+    <p>Contáctanos para conocer el proceso de admisión y comenzar tu formación técnica</p>
+    <a href="index.html#contacto" class="btn-white">Contactar Ahora</a>
+    <a href="index.html#especialidades" class="btn-outline">Ver otras especialidades</a>
+</div>
+<footer>
+    <div class="footer-main">
+        <div>
+            <div class="footer-logo-row"><div class="footer-logo-box"><img src="liceologo.png" alt="Logo Liceo"></div><div class="footer-brand-text"><h3>Liceo Bicentenario Industrial</h3><p>Ingeniero Ricardo Fenner Ruedi</p><p>Red SNA EDUCA &bull; La Unión</p></div></div>
+            <p class="footer-desc">Formando técnicos <strong>profesionales</strong> de excelencia con compromiso, <strong>innovación</strong> y valores.</p>
+            <div class="socials"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
+        </div>
+        <div class="footer-col"><h4>Especialidades</h4><ul><li><a href="electricidad.html">Electricidad</a></li><li><a href="construccion.html">Construcción</a></li><li><a href="sanitarias.html">Inst. Sanitarias</a></li><li><a href="mecanica.html">Mecánica Automotriz</a></li><li><a href="estructuras.html">Estructuras Metálicas</a></li></ul></div>
+        <div class="footer-col"><h4>Más Info</h4><ul><li><a href="index.html">Inicio</a></li><li><a href="nosotros.html">Nosotros</a></li><li><a href="equipo.html">Nuestro Equipo</a></li><li><a href="formatos.html">Formatos</a></li></ul></div>
+        <div class="footer-col"><h4>Contacto</h4><p><i class="fas fa-map-marker-alt"></i> La Unión, Región de Los Ríos</p><p><i class="fas fa-phone"></i> +56 (64) XXX XXXX</p><p><i class="far fa-envelope"></i> contacto@liceofenner.cl</p>
+        </div>
+        <div class="footer-badge-col">
+            <img src="centro-innovacion.png" alt="Centro de Innovación">
+        </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Liceo Bicentenario Industrial. Todos los derechos reservados.</p><p class="gold">Red SNA EDUCA &bull; La Unión</p></div>
+</footer>
+<script>window.addEventListener('scroll', () => { document.getElementById('navbar').style.boxShadow = window.scrollY > 40 ? '0 4px 24px rgba(0,0,0,0.15)' : '0 2px 12px rgba(0,0,0,0.09)'; });</script>
+<script>
+    (function(){
+        var obs = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting){
+                    var d = e.target.dataset.delay || 0;
+                    setTimeout(function(){ e.target.classList.add('visible'); }, +d);
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        var sels = [
+            '.section-header',
+            '.valor-card', '.historia-card', '.timeline-item',
+            '.s-card', '.grp-header', '.admin-card', '.dir-card', '.jef-card',
+            '.plan-card', '.spec-feat', '.feat-item', '.detalle-card',
+            '.info-card', '.social-feed-col', '.esp-card', '.porque-item'
+        ];
+
+        sels.forEach(function(sel){
+            document.querySelectorAll(sel).forEach(function(el, i){
+                if(!el.classList.contains('reveal') && !el.classList.contains('reveal-left') && !el.classList.contains('reveal-right') && !el.classList.contains('reveal-scale')){
+                    el.classList.add('reveal');
+                    el.dataset.delay = (i % 8) * 90;
+                    obs.observe(el);
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

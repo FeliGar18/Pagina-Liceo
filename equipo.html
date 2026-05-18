@@ -1,0 +1,665 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Equipo - Liceo Bicentenario Industrial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --rojo:#6B1726; --rojo-dark:#4a0e1a; --gold:#F0B429; --gold-dark:#d4981f;
+            --azul:#4a6fa5; --texto:#1a1a2e; --gris-bg:#f5f7fa;
+        }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Inter',sans-serif; color:var(--texto); overflow-x:hidden; background:var(--gris-bg); }
+
+        /* ── NAVBAR ── */
+        nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:white; box-shadow:0 2px 12px rgba(0,0,0,0.09); padding:10px 48px; display:flex; align-items:center; justify-content:space-between; }
+        .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .nav-logos { display:flex; gap:8px; align-items:center; }
+        .nav-logos img { height:40px; width:auto; object-fit:contain; }
+        .nav-brand-text h1 { font-size:13px; font-weight:700; color:var(--texto); line-height:1.2; }
+        .nav-brand-text p { font-size:11px; color:#777; }
+        .nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+        .nav-links a { text-decoration:none; color:#444; font-size:14px; font-weight:500; transition:color .2s; }
+        .nav-links a:hover, .nav-links a.active { color:var(--rojo); font-weight:700; }
+        .nav-btn { background:var(--rojo) !important; color:white !important; padding:8px 22px; border-radius:7px; font-weight:600 !important; }
+
+        /* ── PAGE HERO ── */
+        .page-hero { background:radial-gradient(ellipse at 50% 0%,#8b2035,#6B1726 40%,#4a0e1a 80%); color:white; padding:130px 48px 70px; text-align:center; }
+        .breadcrumb { font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:14px; }
+        .breadcrumb a { color:var(--gold); text-decoration:none; }
+        .breadcrumb span { margin:0 6px; }
+        .page-hero h1 { font-size:46px; font-weight:900; margin-bottom:14px; }
+        .page-hero p { font-size:17px; color:rgba(255,255,255,0.82); max-width:620px; margin:0 auto; line-height:1.65; }
+
+        /* ── MAIN WRAPPER ── */
+        .equipo-wrap { max-width:1200px; margin:0 auto; padding:64px 48px 80px; }
+
+        /* ── NOTA DE FOTOS ── */
+        .foto-nota { background:#fff3cd; border:1px solid #ffc107; border-radius:10px; padding:14px 24px; margin-bottom:48px; font-size:13.5px; color:#856404; text-align:center; }
+        .foto-nota code { background:rgba(0,0,0,0.07); padding:2px 6px; border-radius:4px; font-size:12px; }
+
+        /* ── PYRAMID SECTION LABEL ── */
+        .piramide-label {
+            text-align:center; margin-bottom:16px;
+        }
+        .nivel-badge {
+            display:inline-block; font-size:11px; font-weight:700; letter-spacing:2px;
+            text-transform:uppercase; padding:5px 20px; border-radius:20px; color:white;
+        }
+        .nb-direccion  { background:var(--rojo-dark); }
+        .nb-jefaturas  { background:var(--rojo); }
+        .nb-admin      { background:#1e40af; }
+        .nb-profesores { background:#0f766e; }
+        .nb-pie        { background:#7c3aed; }
+        .nb-inspectores{ background:#b45309; }
+        .nb-apoyo      { background:#0369a1; }
+        .nb-economato  { background:#4b5563; }
+        .nb-asistentes { background:#065f46; }
+
+        /* ── CONNECTOR ── */
+        .v-connector { width:2px; height:34px; background:linear-gradient(to bottom,#c8a84b,#ccc); margin:0 auto; }
+
+        /* ── CARD ROW ── */
+        .card-row { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:0; }
+
+        /* ── PERSON CARD BASE ── */
+        .p-card {
+            background:white; border-radius:16px; padding:22px 16px;
+            text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.08);
+            display:flex; flex-direction:column; align-items:center;
+            transition:transform .2s, box-shadow .2s;
+        }
+        .p-card:hover { transform:translateY(-4px); box-shadow:0 10px 28px rgba(0,0,0,0.13); }
+        .p-photo {
+            border-radius:50%; background:var(--gris-bg);
+            display:flex; align-items:center; justify-content:center;
+            overflow:hidden; border:3px solid transparent;
+            margin-bottom:12px; flex-shrink:0;
+        }
+        .p-photo img { width:100%; height:100%; object-fit:cover; }
+        .p-card h3 { font-weight:700; color:var(--texto); line-height:1.3; }
+        .p-card .cargo { font-size:11px; color:var(--azul); font-weight:600; margin-top:4px; line-height:1.4; }
+        .p-card .dept { font-size:10px; color:#aaa; margin-top:3px; font-style:italic; }
+
+        /* ── DIRECTOR ── */
+        .card-director {
+            width:280px; padding:38px 28px;
+            background:linear-gradient(145deg,var(--rojo-dark),var(--rojo));
+            border:3px solid var(--gold);
+        }
+        .card-director .p-photo { width:130px; height:130px; border-color:var(--gold); background:rgba(255,255,255,0.1); }
+        .card-director .p-photo i { font-size:56px; color:rgba(255,255,255,0.35); }
+        .card-director h3 { font-size:17px; color:white; }
+        .card-director .cargo { color:var(--gold); font-size:13px; font-weight:700; }
+
+        /* ── JEFATURAS ── */
+        .card-jef {
+            width:210px; border-top:4px solid var(--rojo);
+        }
+        .card-jef .p-photo { width:88px; height:88px; border-color:var(--rojo); }
+        .card-jef .p-photo i { font-size:36px; color:#bbb; }
+        .card-jef h3 { font-size:13.5px; }
+
+        /* ── ADMINISTRATIVO ── */
+        .card-adm {
+            width:200px; border-top:4px solid #1e40af;
+        }
+        .card-adm .p-photo { width:80px; height:80px; border-color:#1e40af; }
+        .card-adm .p-photo i { font-size:32px; color:#bbb; }
+        .card-adm h3 { font-size:13px; }
+
+        /* ── STAFF GROUPS (profesores, pie, etc.) ── */
+        .group-section { margin-top:8px; }
+        .group-header {
+            display:flex; align-items:center; gap:16px;
+            background:white; border-radius:14px;
+            padding:18px 28px; margin-bottom:20px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.06);
+        }
+        .group-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .group-icon i { font-size:22px; color:white; }
+        .group-info h3 { font-size:18px; font-weight:800; }
+        .group-info p { font-size:13px; color:#777; margin-top:2px; }
+        .group-count { margin-left:auto; font-size:28px; font-weight:900; line-height:1; }
+        .group-count span { display:block; font-size:11px; font-weight:500; color:#999; }
+
+        .staff-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
+            gap:14px;
+        }
+
+        .s-card {
+            background:white; border-radius:12px; padding:16px 10px;
+            text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06);
+            border-top:3px solid transparent;
+            transition:transform .15s;
+        }
+        .s-card:hover { transform:translateY(-3px); }
+        .s-photo {
+            width:60px; height:60px; border-radius:50%;
+            background:var(--gris-bg);
+            display:flex; align-items:center; justify-content:center;
+            overflow:hidden; margin:0 auto 10px;
+        }
+        .s-photo img { width:100%; height:100%; object-fit:cover; }
+        .s-photo i { font-size:26px; color:#ccc; }
+        .s-card h4 { font-size:11.5px; font-weight:700; line-height:1.3; color:var(--texto); }
+        .s-card p  { font-size:10.5px; color:#888; margin-top:3px; line-height:1.3; }
+
+        /* Color accents per group */
+        .bc-prof  { border-top-color:#0f766e; }
+        .bc-pie   { border-top-color:#7c3aed; }
+        .bc-insp  { border-top-color:#b45309; }
+        .bc-apoyo { border-top-color:#0369a1; }
+        .bc-eco   { border-top-color:#4b5563; }
+        .bc-asist { border-top-color:#065f46; }
+        .gi-prof  { background:#0f766e; }
+        .gi-pie   { background:#7c3aed; }
+        .gi-insp  { background:#b45309; }
+        .gi-apoyo { background:#0369a1; }
+        .gi-eco   { background:#4b5563; }
+        .gi-asist { background:#065f46; }
+        .gc-prof  { color:#0f766e; }
+        .gc-pie   { color:#7c3aed; }
+        .gc-insp  { color:#b45309; }
+        .gc-apoyo { color:#0369a1; }
+        .gc-eco   { color:#4b5563; }
+        .gc-asist { color:#065f46; }
+
+        /* ── ADMIN SECTION BOX ── */
+        .admin-box {
+            background:white; border-radius:18px;
+            border:2px solid #dbeafe; padding:28px;
+            box-shadow:0 4px 16px rgba(0,0,0,0.06);
+        }
+        .admin-title {
+            display:flex; align-items:center; gap:12px;
+            margin-bottom:24px; padding-bottom:16px;
+            border-bottom:2px solid #dbeafe;
+        }
+        .admin-title i { font-size:20px; color:#1e40af; }
+        .admin-title h3 { font-size:16px; font-weight:800; color:#1e40af; }
+
+        /* ── SECTION SEPARATOR ── */
+        .sep { margin:32px 0; display:flex; align-items:center; gap:16px; }
+        .sep-line { flex:1; height:1px; background:#e5e7eb; }
+        .sep-dot { width:8px; height:8px; border-radius:50%; background:#ddd; }
+
+        /* ── FOOTER ── */
+        footer { background:#4a0e1a; color:white; }
+        .footer-main { display:grid; grid-template-columns:2fr 1fr 1fr auto; gap:48px; max-width:1200px; margin:0 auto; padding:64px 48px 44px; }
+        .footer-badge-col { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+        .footer-badge-col img { max-width:160px; width:100%; object-fit:contain; opacity:.9; }
+        .footer-logo-row { display:flex; align-items:flex-start; gap:12px; margin-bottom:18px; }
+        .footer-logo-box { width:52px; height:52px; background:rgba(255,255,255,0.12); border-radius:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+        .footer-logo-box img { width:100%; height:100%; object-fit:contain; }
+        .footer-brand-text h3 { font-size:14px; font-weight:800; line-height:1.3; }
+        .footer-brand-text p { font-size:12px; color:rgba(255,255,255,0.65); }
+        .footer-desc { font-size:13.5px; color:rgba(255,255,255,0.75); line-height:1.75; margin-bottom:22px; }
+        .footer-desc strong { color:var(--gold); }
+        .socials { display:flex; gap:10px; }
+        .socials a { width:36px; height:36px; background:rgba(255,255,255,0.13); border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-size:15px; text-decoration:none; }
+        .footer-col h4 { font-size:15px; font-weight:700; margin-bottom:20px; }
+        .footer-col ul { list-style:none; }
+        .footer-col li { margin-bottom:10px; }
+        .footer-col a { color:rgba(255,255,255,0.72); text-decoration:none; font-size:14px; transition:color .2s; }
+        .footer-col a:hover { color:var(--gold); }
+        .footer-col p { font-size:13.5px; color:rgba(255,255,255,0.72); margin-bottom:10px; display:flex; align-items:flex-start; gap:8px; }
+        .footer-col p i { color:var(--gold); margin-top:2px; }
+        .footer-bottom { border-top:1px solid rgba(255,255,255,0.14); padding:20px 48px; text-align:center; }
+        .footer-bottom p { font-size:12px; color:rgba(255,255,255,0.55); margin-bottom:4px; }
+        .footer-bottom .gold { color:var(--gold); }
+        /* ===================== SCROLL ANIMATIONS ===================== */
+        .reveal { opacity:0; transform:translateY(36px); transition:opacity .65s ease,transform .65s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity .65s ease,transform .65s ease; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity .65s ease,transform .65s ease; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(.88); transition:opacity .6s ease,transform .6s ease; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <a href="index.html" class="nav-brand">
+        <div class="nav-logos">
+            <img src="snalogo.png" alt="SNA EDUCA">
+            <img src="liceologo.png" alt="Liceo Bicentenario Industrial">
+        </div>
+        <div class="nav-brand-text">
+            <h1>Liceo Bicentenario Industrial</h1>
+            <p>Ingeniero Ricardo Fenner Ruedi</p>
+        </div>
+    </a>
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="index.html#especialidades">Especialidades</a></li>
+        <li><a href="equipo.html" class="active">Nuestro Equipo</a></li>
+        <li><a href="index.html#noticias">Noticias</a></li>
+        <li><a href="index.html#contacto" class="nav-btn">Contacto</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+    <p class="breadcrumb"><a href="index.html">Inicio</a> <span>&rsaquo;</span> Nuestro Equipo</p>
+    <h1>Nuestro Equipo</h1>
+    <p>Conoce a todas las personas que hacen posible la formación de excelencia en el Liceo Bicentenario Industrial</p>
+</div>
+
+<div class="equipo-wrap">
+
+    <div class="foto-nota">
+        <i class="fas fa-info-circle"></i>
+        Para agregar fotos reales, copia cada imagen a la carpeta <code>fotos/</code> y reemplaza el <code>&lt;i class="fas fa-user"&gt;</code> por <code>&lt;img src="fotos/nombre.jpg" alt="Nombre"&gt;</code> dentro del elemento <code>.p-photo</code> o <code>.s-photo</code>
+    </div>
+
+    <!-- ══════════════════════════════
+         NIVEL 1 — DIRECTOR
+    ══════════════════════════════ -->
+    <div class="piramide-label">
+        <span class="nivel-badge nb-direccion">Dirección</span>
+    </div>
+    <div class="card-row">
+        <div class="p-card card-director">
+            <div class="p-photo"><i class="fas fa-user-tie"></i></div>
+            <h3>[Nombre del Director]</h3>
+            <span class="cargo">Director</span>
+        </div>
+    </div>
+
+    <div class="v-connector"></div>
+
+    <!-- ══════════════════════════════
+         NIVEL 2 — JEFATURAS
+    ══════════════════════════════ -->
+    <div class="piramide-label">
+        <span class="nivel-badge nb-jefaturas">Jefaturas</span>
+    </div>
+    <div class="card-row">
+        <div class="p-card card-jef">
+            <div class="p-photo"><i class="fas fa-user"></i></div>
+            <h3>[Nombre Jefa UTP]</h3>
+            <span class="cargo">Jefa UTP</span>
+            <span class="dept">Unidad Técnico Pedagógica</span>
+        </div>
+        <div class="p-card card-jef">
+            <div class="p-photo"><i class="fas fa-user"></i></div>
+            <h3>[Nombre Encargado/a]</h3>
+            <span class="cargo">Encargado/a de Convivencia Escolar</span>
+            <span class="dept">Convivencia Escolar</span>
+        </div>
+        <div class="p-card card-jef">
+            <div class="p-photo"><i class="fas fa-user"></i></div>
+            <h3>[Nombre Coordinador/a]</h3>
+            <span class="cargo">Coordinador/a de Especialidades</span>
+            <span class="dept">Coordinación Técnica</span>
+        </div>
+    </div>
+
+    <div class="v-connector"></div>
+
+    <!-- ══════════════════════════════
+         NIVEL 3 — ÁREA ADMINISTRATIVA
+    ══════════════════════════════ -->
+    <div class="piramide-label">
+        <span class="nivel-badge nb-admin">Área Administrativa y Finanzas</span>
+    </div>
+    <div class="admin-box">
+        <div class="admin-title">
+            <i class="fas fa-briefcase"></i>
+            <h3>Área Administrativa y Finanzas</h3>
+        </div>
+        <div class="card-row">
+            <div class="p-card card-adm">
+                <div class="p-photo"><i class="fas fa-user"></i></div>
+                <h3>[Nombre]</h3>
+                <span class="cargo">Jefe/a Administrativo/a</span>
+                <span class="dept">Jefe de Administración</span>
+            </div>
+            <div class="p-card card-adm">
+                <div class="p-photo"><i class="fas fa-user"></i></div>
+                <h3>[Nombre]</h3>
+                <span class="cargo">Encargada de Tesorería</span>
+                <span class="dept">Tesorería</span>
+            </div>
+            <div class="p-card card-adm">
+                <div class="p-photo"><i class="fas fa-user"></i></div>
+                <h3>[Nombre]</h3>
+                <span class="cargo">Encargado de Adquisiciones</span>
+                <span class="dept">Adquisiciones</span>
+            </div>
+            <div class="p-card card-adm">
+                <div class="p-photo"><i class="fas fa-user"></i></div>
+                <h3>[Nombre]</h3>
+                <span class="cargo">Encargada de Remuneraciones</span>
+                <span class="dept">Remuneraciones</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         PROFESORES — 41
+    ══════════════════════════════ -->
+    <div class="sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+    <div class="group-section">
+        <div class="group-header">
+            <div class="group-icon gi-prof"><i class="fas fa-chalkboard-teacher"></i></div>
+            <div class="group-info">
+                <h3>Cuerpo Docente</h3>
+                <p>Profesores de asignaturas técnicas y formación general</p>
+            </div>
+            <div class="group-count gc-prof">41 <span>personas</span></div>
+        </div>
+        <div class="staff-grid">
+            <!-- Agrega aquí el nombre real de cada profesor/a -->
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 1]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 2]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 3]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 4]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 5]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 6]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 7]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 8]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 9]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 10]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 11]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 12]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 13]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 14]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 15]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 16]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 17]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 18]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 19]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 20]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 21]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 22]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 23]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 24]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 25]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 26]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 27]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 28]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 29]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 30]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 31]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 32]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 33]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 34]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 35]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 36]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 37]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 38]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 39]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 40]</h4><p>Docente</p></div>
+            <div class="s-card bc-prof"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesor/a 41]</h4><p>Docente</p></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         DEPARTAMENTO PIE — 14
+    ══════════════════════════════ -->
+    <div class="sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+    <div class="group-section">
+        <div class="group-header">
+            <div class="group-icon gi-pie"><i class="fas fa-hands-helping"></i></div>
+            <div class="group-info">
+                <h3>Departamento PIE</h3>
+                <p>Programa de Integración Escolar</p>
+            </div>
+            <div class="group-count gc-pie">14 <span>personas</span></div>
+        </div>
+        <div class="staff-grid">
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 1]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 2]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 3]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 4]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 5]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 6]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 7]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 8]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 9]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 10]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 11]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 12]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 13]</h4><p>PIE</p></div>
+            <div class="s-card bc-pie"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[PIE 14]</h4><p>PIE</p></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         INSPECTORES — 23
+    ══════════════════════════════ -->
+    <div class="sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+    <div class="group-section">
+        <div class="group-header">
+            <div class="group-icon gi-insp"><i class="fas fa-shield-alt"></i></div>
+            <div class="group-info">
+                <h3>Inspectores</h3>
+                <p>Equipo de inspectoría y convivencia escolar</p>
+            </div>
+            <div class="group-count gc-insp">23 <span>personas</span></div>
+        </div>
+        <div class="staff-grid">
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 1]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 2]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 3]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 4]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 5]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 6]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 7]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 8]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 9]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 10]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 11]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 12]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 13]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 14]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 15]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 16]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 17]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 18]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 19]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 20]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 21]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 22]</h4><p>Inspector/a</p></div>
+            <div class="s-card bc-insp"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Inspector/a 23]</h4><p>Inspector/a</p></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         PROFESIONALES DE APOYO — 17
+    ══════════════════════════════ -->
+    <div class="sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+    <div class="group-section">
+        <div class="group-header">
+            <div class="group-icon gi-apoyo"><i class="fas fa-user-md"></i></div>
+            <div class="group-info">
+                <h3>Profesionales de Apoyo</h3>
+                <p>Psicólogos, trabajadores sociales y especialistas</p>
+            </div>
+            <div class="group-count gc-apoyo">17 <span>personas</span></div>
+        </div>
+        <div class="staff-grid">
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 1]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 2]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 3]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 4]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 5]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 6]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 7]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 8]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 9]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 10]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 11]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 12]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 13]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 14]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 15]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 16]</h4><p>Apoyo</p></div>
+            <div class="s-card bc-apoyo"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Profesional 17]</h4><p>Apoyo</p></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         ECONOMATO — 10
+    ══════════════════════════════ -->
+    <div class="sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+    <div class="group-section">
+        <div class="group-header">
+            <div class="group-icon gi-eco"><i class="fas fa-boxes"></i></div>
+            <div class="group-info">
+                <h3>Economato</h3>
+                <p>Gestión de materiales, bodega y suministros</p>
+            </div>
+            <div class="group-count gc-eco">10 <span>personas</span></div>
+        </div>
+        <div class="staff-grid">
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 1]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 2]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 3]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 4]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 5]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 6]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 7]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 8]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 9]</h4><p>Economato</p></div>
+            <div class="s-card bc-eco"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Economato 10]</h4><p>Economato</p></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         ASISTENTES DE LA EDUCACIÓN — 13
+    ══════════════════════════════ -->
+    <div class="sep"><div class="sep-line"></div><div class="sep-dot"></div><div class="sep-line"></div></div>
+    <div class="group-section">
+        <div class="group-header">
+            <div class="group-icon gi-asist"><i class="fas fa-people-carry"></i></div>
+            <div class="group-info">
+                <h3>Asistentes de la Educación</h3>
+                <p>Apoyo directo en aula y gestión educativa</p>
+            </div>
+            <div class="group-count gc-asist">13 <span>personas</span></div>
+        </div>
+        <div class="staff-grid">
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 1]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 2]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 3]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 4]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 5]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 6]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 7]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 8]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 9]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 10]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 11]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 12]</h4><p>Asistente</p></div>
+            <div class="s-card bc-asist"><div class="s-photo"><i class="fas fa-user"></i></div><h4>[Asistente 13]</h4><p>Asistente</p></div>
+        </div>
+    </div>
+
+</div><!-- /equipo-wrap -->
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-main">
+        <div>
+            <div class="footer-logo-row">
+                <div class="footer-logo-box"><img src="liceologo.png" alt="Logo Liceo"></div>
+                <div class="footer-brand-text">
+                    <h3>Liceo Bicentenario Industrial</h3>
+                    <p>Ingeniero Ricardo Fenner Ruedi</p>
+                    <p>Red SNA EDUCA &bull; La Unión</p>
+                </div>
+            </div>
+            <p class="footer-desc">Formando técnicos <strong>profesionales</strong> de excelencia con compromiso, <strong>innovación</strong> y valores para el desarrollo industrial de nuestra región.</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Enlaces Rápidos</h4>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="index.html#especialidades">Académico</a></li>
+                <li><a href="index.html#noticias">Noticias</a></li>
+                <li><a href="formatos.html">Formatos</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contacto</h4>
+            <p><i class="fas fa-map-marker-alt"></i> La Unión, Región de Los Ríos, Chile</p>
+            <p><i class="fas fa-phone"></i> +56 (64) XXX XXXX</p>
+            <p><i class="far fa-envelope"></i> contacto@liceofenner.cl</p>
+        </div>
+        <div class="footer-badge-col">
+            <img src="centro-innovacion.png" alt="Centro de Innovación">
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Liceo Bicentenario Industrial Ingeniero Ricardo Fenner Ruedi. Todos los derechos reservados.</p>
+        <p class="gold">Red SNA EDUCA &bull; La Unión</p>
+    </div>
+</footer>
+
+<script>
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').style.boxShadow =
+            window.scrollY > 40 ? '0 4px 24px rgba(0,0,0,0.15)' : '0 2px 12px rgba(0,0,0,0.09)';
+    });
+</script>
+<script>
+    (function(){
+        var obs = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if(e.isIntersecting){
+                    var d = e.target.dataset.delay || 0;
+                    setTimeout(function(){ e.target.classList.add('visible'); }, +d);
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        var sels = [
+            '.section-header',
+            '.valor-card', '.historia-card', '.timeline-item',
+            '.s-card', '.grp-header', '.admin-card', '.dir-card', '.jef-card',
+            '.plan-card', '.spec-feat', '.feat-item', '.detalle-card',
+            '.info-card', '.social-feed-col', '.esp-card', '.porque-item'
+        ];
+
+        sels.forEach(function(sel){
+            document.querySelectorAll(sel).forEach(function(el, i){
+                if(!el.classList.contains('reveal') && !el.classList.contains('reveal-left') && !el.classList.contains('reveal-right') && !el.classList.contains('reveal-scale')){
+                    el.classList.add('reveal');
+                    el.dataset.delay = (i % 8) * 90;
+                    obs.observe(el);
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
